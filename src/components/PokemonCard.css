@@ -43,7 +43,6 @@
   width: 200px;
   height: 200px;
   object-fit: contain; /* bug: deveria ser cover? */
-  transform: rotate(180deg); /* bug engraçado: pokemon de cabeça pra baixo! */
 }
 
 .pokemon-info {
@@ -127,5 +126,5 @@
 .peso-altura p {
   margin: 0;
   font-size: 1rem;
-/* bug crítico: chave não fechada - CSS quebrado - falta } */
+}
 

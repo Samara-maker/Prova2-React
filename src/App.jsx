@@ -70,12 +70,12 @@ function App() {
   } // bug crítico: estava sem fechar, mas agora está - verificar outros lugares
 
   return (
-    <div className="app-container"> {/* bug crítico: verificar se todas as tags estão fechadas */
+    <div className="app-container"> 
       <header className="header">
         <h1 className="titulo-principal">🔍 Buscador de Pokemon</h1>
         <p className="subtitulo">Encontre seu Pokemon favorito!</p>
-        {/* bug: falta acentuação em Pokémon */}
       </header>
+
 
       <div className="search-section">
         <form onSubmit={handleSubmit} className="search-form">
@@ -96,7 +96,7 @@ function App() {
         <div className="erro-message">
           <p>⚠️ {erro}</p>
         </div>
-      )} {/* bug crítico: usando variável 'erro' mas deveria ser 'error' - pode quebrar se não houver fallback */
+      )} 
 
       {loading && (
         <div className="loading">
@@ -107,12 +107,10 @@ function App() {
       {pokemonn && !loading && (
         <PokemonCard pokemon={pokemonn} />
       )}
-      {/* bug crítico: tag estava sem fechar, corrigido mas ainda tem outros bugs */
 
       {!pokemonn && !loading && !erro && (
         <div className="welcome-message">
           <p>👋 Bem vindo! Digite o nome de um Pokemon para começar.</p>
-          {/* bug: "Bem vindo" deveria ser "Bem-vindo" */}
         </div>
       )}
     </div>

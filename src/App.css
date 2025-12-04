@@ -14,7 +14,7 @@
   font-size: 3rem;
   margin-bottom: 0.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  font-weight: 900; /* bug: muito pesado, deveria ser normal ou bold */
+  font-weight: 700; /* corrigido: peso visual forte, mas sem exagero */
 }
 
 .subtitulo {
@@ -42,7 +42,7 @@
   border-radius: 10px;
   outline: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff; /* bug: cor branca no fundo roxo */
+  background-color: rgba(255, 255, 255, 0.85); 
 }
 
 .search-input:focus {
@@ -67,7 +67,7 @@
 }
 
 .search-button:disabled {
-  background-color: #cccccc; /* bug crítico: estava sem ponto e vírgula - CSS quebrado */
+  background-color: #cccccc; 
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -109,4 +109,5 @@
 .welcome-message p {
   margin: 0;
 }
-/* bug crítico: estava comentado mas na verdade está fechado - verificar outros lugares */
+
+
