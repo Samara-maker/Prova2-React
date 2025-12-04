@@ -1,97 +1,77 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
-import PokemonCard from './components/PokemonCard.jsx' // bug crítico: caminho errado, deveria ser './components/PokemonCard.jsx'
+import PokemonCard from './components/PokemonCard.jsx'
 
 function App() {
-  const [pokemonn, setPokemonn] = useState(null)
-  const [serchTerm, setSerchTerm] = useState('')
+  const [pokemon, setPokemon] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(false)
-  const [erro, setErro] = useState(null)
+  const [error, setError] = useState(null)
 
-  // Função para buscar pokemon por nome completo ou iniciais
+  // Busca por nome exato; se falhar, usa lista de nomes com heurística
   const buscarPokemon = async (nome) => {
-    if (!nome) {
-      setErro('Por favor, digite um nome de pokemon') // bug: falta vírgula após "favor"
+    const q = String(nome || '').trim()
+    if (!q) {
+      setError('Por favor, digite o nome de um Pokémon.')
       return
     }
 
     setLoading(true)
-    setErro(null)
+    setError(null)
 
     try {
-      // Primeiro tenta buscar pelo nome exato
-      let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nome.toLowerCase()}`)
-      
-      // Se não encontrar, busca por iniciais
+      let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(q.toLowerCase())}`)
+
       if (!response.ok) {
-        // Busca lista de pokemons e filtra por iniciais
-        const listResponse = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1000`)
-        if (!listResponse.ok) {
-          throw new Error('Erro ao buscar lista de pokemons')
-        }
-        
+        const listResponse = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1000')
+        if (!listResponse.ok) throw new Error('Erro ao buscar lista de pokémons')
+
         const listData = await listResponse.json()
-        const ql = String(nome).toLowerCase()
-        // primeiro tenta matches que começam com o termo
+        const ql = q.toLowerCase()
+        // primeiro matches que começam com o termo
         let matches = listData.results.filter(p => p.name.toLowerCase().startsWith(ql))
         // se nenhum, tenta includes (mais flexível)
-        if (matches.length === 0) {
-          matches = listData.results.filter(p => p.name.toLowerCase().includes(ql))
-        }
+        if (matches.length === 0) matches = listData.results.filter(p => p.name.toLowerCase().includes(ql))
 
-        if (matches.length === 0) {
-          throw new Error('Pokemon não encontrado!')
-        }
+        if (matches.length === 0) throw new Error('Pokémon não encontrado')
 
-        // se houver vários matches, prioriza nomes mais longos (ex: 'pikachu' sobre 'pichu')
+        // prioriza nomes mais longos (pikachu > pichu)
         const pokemonEncontrado = matches.sort((a, b) => b.name.length - a.name.length)[0]
-
-        // Busca os dados completos do pokemon encontrado
         response = await fetch(pokemonEncontrado.url)
-        if (!response.ok) {
-          throw new Error('Erro ao buscar dados do pokemon')
-        }
+        if (!response.ok) throw new Error('Erro ao buscar dados do Pokémon')
       }
 
       const data = await response.json()
-      setPokemonn(data)
-      console.log(pokemonn) // bug crítico: tentando usar variável antes de atualizar estado - retorna null
+      setPokemon(data)
     } catch (err) {
-      setErro(err.message || 'Erro ao buscar pokemon')
-      setPokemonn(null)
+      setError(err?.message ?? 'Erro ao buscar Pokémon')
+      setPokemon(null)
     } finally {
       setLoading(false)
     }
   }
 
-  // Buscar quando o termo de pesquisa mudar (bug: vai buscar toda vez que digitar!)
-  useEffect(() => {
-    if (serchTerm) {
-      buscarPokemon(serchTerm)
-    }
-  }, [serchTerm]) // bug: falta adicionar buscarPokemon nas dependencias
-
+  // Busca apenas ao submeter o formulário (melhora UX e evita spam de requisições)
   const handleSubmit = (e) => {
     e.preventDefault()
-    buscarPokemon(serchTerm)
-  } // bug crítico: estava sem fechar, mas agora está - verificar outros lugares
+    buscarPokemon(searchTerm)
+  }
 
   return (
-    <div className="app-container"> 
+    <div className="app-container">
       <header className="header">
-        <h1 className="titulo-principal">🔍 Buscador de Pokemon</h1>
-        <p className="subtitulo">Encontre seu Pokemon favorito!</p>
+        <h1 className="titulo-principal">🔍 Buscador de Pokémon</h1>
+        <p className="subtitulo">Encontre seu Pokémon favorito!</p>
       </header>
-
 
       <div className="search-section">
         <form onSubmit={handleSubmit} className="search-form">
           <input
             type="text"
             className="search-input"
-            placeholder="Digite o nome ou iniciais do Pokemon (ex: pika ou pikachu)"
-            value={serchTerm}
-            onChange={(e) => setSerchTerm(e.target.value)}
+            placeholder="Digite o nome ou iniciais do Pokémon (ex: pika ou pikachu)"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <button type="submit" className="search-button" disabled={loading}>
             {loading ? 'Buscando...' : 'Buscar'}
@@ -99,30 +79,29 @@ function App() {
         </form>
       </div>
 
-      {erro && (
+      {error && (
         <div className="erro-message">
-          <p>⚠️ {erro}</p>
+          <p>⚠️ {error}</p>
         </div>
-      )} 
+      )}
 
       {loading && (
         <div className="loading">
-          <p>Carregando pokemon...</p>
+          <p>Carregando Pokémon...</p>
         </div>
       )}
 
-      {pokemonn && !loading && (
-        <PokemonCard pokemon={pokemonn} />
+      {pokemon && !loading && (
+        <PokemonCard pokemon={pokemon} />
       )}
 
-      {!pokemonn && !loading && !erro && (
+      {!pokemon && !loading && !error && (
         <div className="welcome-message">
-          <p>👋 Bem vindo! Digite o nome de um Pokemon para começar.</p>
+          <p>👋 Bem-vindo! Digite o nome de um Pokémon para começar.</p>
         </div>
       )}
     </div>
   )
 }
 
-export default App;
-// bug crítico: falta fechar algo? Verificar sintaxe completa
+export default App
