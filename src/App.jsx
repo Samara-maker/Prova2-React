@@ -31,14 +31,21 @@ function App() {
         }
         
         const listData = await listResponse.json()
-        const pokemonEncontrado = listData.results.find(p => 
-          p.name.toLowerCase().startsWith(nome.toLowerCase()) // bug: poderia usar includes() para busca mais flexível
-        )
-        
-        if (!pokemonEncontrado) {
+        const ql = String(nome).toLowerCase()
+        // primeiro tenta matches que começam com o termo
+        let matches = listData.results.filter(p => p.name.toLowerCase().startsWith(ql))
+        // se nenhum, tenta includes (mais flexível)
+        if (matches.length === 0) {
+          matches = listData.results.filter(p => p.name.toLowerCase().includes(ql))
+        }
+
+        if (matches.length === 0) {
           throw new Error('Pokemon não encontrado!')
         }
-        
+
+        // se houver vários matches, prioriza nomes mais longos (ex: 'pikachu' sobre 'pichu')
+        const pokemonEncontrado = matches.sort((a, b) => b.name.length - a.name.length)[0]
+
         // Busca os dados completos do pokemon encontrado
         response = await fetch(pokemonEncontrado.url)
         if (!response.ok) {
