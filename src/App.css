@@ -1,0 +1,112 @@
+.app-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.titulo-principal {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: 900; /* bug: muito pesado, deveria ser normal ou bold */
+}
+
+.subtitulo {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.search-section {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff; /* bug: cor branca no fundo roxo */
+}
+
+.search-input:focus {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.search-button {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}
+
+.search-button:disabled {
+  background-color: #cccccc; /* bug crítico: estava sem ponto e vírgula - CSS quebrado */
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.erro-message {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  padding: 1rem;
+  background-color: #f44336;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.erro-message p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.loading {
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  margin: 2rem 0;
+}
+
+.welcome-message {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.welcome-message p {
+  margin: 0;
+}
+/* bug crítico: estava comentado mas na verdade está fechado - verificar outros lugares */

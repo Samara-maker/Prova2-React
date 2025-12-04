@@ -1,0 +1,131 @@
+.pokemon-card {
+  max-width: 500px;
+  margin: 2rem auto;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  color: white;
+  width: 100%; /* bug: conflito com max-width */
+}
+
+.pokemon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.pokemon-nome {
+  font-size: 2rem;
+  text-transform: capitalize;
+  margin: 0;
+  color: #fff;
+}
+
+.pokemon-id {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 10px;
+}
+
+.pokemon-imagem-container {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+.pokemon-imagem {
+  width: 200px;
+  height: 200px;
+  object-fit: contain; /* bug: deveria ser cover? */
+  transform: rotate(180deg); /* bug engraçado: pokemon de cabeça pra baixo! */
+}
+
+.pokemon-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-section {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.info-section h3 {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tipos-container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tipo-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  background: rgba(255, 255, 255, 0.3);
+  color: black; /* bug: texto preto no fundo branco transparente */
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.stat-name {
+  text-transform: capitalize;
+  opacity: 0.9;
+}
+
+.stat-value {
+  font-weight: bold;
+}
+
+.habilidades-container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.habilidade-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.3);
+  text-transform: capitalize;
+}
+
+.peso-altura {
+  display: flex;
+  gap: 1rem;
+}
+
+.peso-altura p {
+  margin: 0;
+  font-size: 1rem;
+/* bug crítico: chave não fechada - CSS quebrado - falta } */
+
