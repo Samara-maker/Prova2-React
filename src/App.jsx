@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import PokemonCard from './components/PokemonCard' // bug crítico: caminho errado, deveria ser './components/PokemonCard.jsx'
+import PokemonCard from './components/PokemonCard.jsx' // bug crítico: caminho errado, deveria ser './components/PokemonCard.jsx'
 
 function App() {
   const [pokemonn, setPokemonn] = useState(null)
@@ -11,7 +11,7 @@ function App() {
   // Função para buscar pokemon por nome completo ou iniciais
   const buscarPokemon = async (nome) => {
     if (!nome) {
-      setErro('Por favor digite um nome de pokemon') // bug: falta vírgula após "favor"
+      setErro('Por favor, digite um nome de pokemon') // bug: falta vírgula após "favor"
       return
     }
 
@@ -124,5 +124,5 @@ function App() {
   )
 }
 
-export default App
+export default App;
 // bug crítico: falta fechar algo? Verificar sintaxe completa

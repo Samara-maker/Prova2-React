@@ -14,7 +14,7 @@
   font-size: 3rem;
   margin-bottom: 0.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  font-weight: 700; /* corrigido: peso visual forte, mas sem exagero */
+  font-weight: 700; 
 }
 
 .subtitulo {

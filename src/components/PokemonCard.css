@@ -6,7 +6,7 @@
   padding: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   color: white;
-  width: 100%; /* bug: conflito com max-width */
+
 }
 
 .pokemon-header {

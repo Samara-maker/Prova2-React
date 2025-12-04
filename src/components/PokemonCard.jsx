@@ -26,7 +26,7 @@ function PokemonCard({ pokemon }) {
           alt={`Imagem do ${pokemon.name}`}
           className="pokemon-imagem"
           onError={(e) => { 
-            e.target.src = '/fallback-pokemon.png' // corrigido: imagem padrão
+            e.target.src = '/fallback-pokemon.png' 
           }}
         />
       </div>
